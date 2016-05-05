@@ -1,0 +1,25 @@
+{
+  "name": "devzone",
+  "version": "0.0.1",
+  "description": "Dz",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-requirejs": "^0.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hellhium/DevZone.git"
+  },
+  "author": "Leethium",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hellhium/DevZone/issues"
+  },
+  "homepage": "https://github.com/Hellhium/DevZone#readme"
+}

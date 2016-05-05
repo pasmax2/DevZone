@@ -1,4 +1,4 @@
-var app = angular.module('devZone', ['ngRoute', 'dndLists']);
+var app = angular.module('devZone');
 
 app.config(function($httpProvider) {
 	$httpProvider.defaults.headers.common.auth = _md5;
