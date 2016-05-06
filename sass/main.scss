@@ -1,1 +1,15 @@
 // main.scss
+.browser-window, .promo-example, nav, ul.side-nav.fixed{
+  overflow:initial;
+}
+.card-stat-head{
+  border-radius: 15px 15px 0 0;
+}
+.card-ticket{
+  .card-action{
+    padding: 10px 20px 15px 20px;
+  }
+  .card-content{
+    padding:15px;
+  }
+}
