@@ -6,7 +6,6 @@ shortenString = function (str, len){
     return str;
   }
   var out = str.substring(0,len);
-  console.log(out);
   out = out.split(' ');
   out.length--;
   return out.join(' ')+'...';
