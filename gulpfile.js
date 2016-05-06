@@ -5,7 +5,7 @@ var rename = require('gulp-rename');
 var browserify = require('gulp-browserify');
 
 
-gulp.task('default', ['matScss', 'watch', 'minifycss'], function(){
+gulp.task('default', ['matScss', 'watch', 'minifycss', 'compreq'], function(){
 
 });
 
