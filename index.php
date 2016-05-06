@@ -15,7 +15,7 @@
   <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="styles/main.css" rel="stylesheet" type="text/css">
 </head>
-<body ng-controller="UserController">
+<body ng-controller="MainController">
   <ul id="ddAdmin" class="dropdown-content">
     <li><a href="#!">Gestion des assignés</a></li>
     <li><a href="#!">Gestion des catégories</a></li>
@@ -35,75 +35,22 @@
   </nav>
   <div class="container">
     <div class="row">
-      <div class="col s12 m3">
+      <div class="col s12 m3" ng-repeat="stt in stat" ng-if="stt.stat_hidden==0">
         <div class="card grey darken-2 card-stat-head">
           <div class="card-title center-align white-text">
-            Suggestions
+            {{stt.stat_name}}
           </div>
         </div>
-        <div class="card card-ticket teal darken-1">
+        <div class="card card-ticket teal darken-1" ng-repeat="ticket in tickets" ng-if="stt.stat_id == ticket.stat_id">
           <div class="card-content white-text">
-            <div class="card-title">DevZone V2</div>
-            <p>Le temps est venu de mettre à jour cet outil...</p>
+            <div class="card-title">{{ticket.tk_title}}</div>
+            <p ng-if="ticket.stat_id != 1 && ticket.tk_showdesc != 0">{{ticket.desc}}</p>
           </div>
           <div class="card-action">
-            <div class="chip">DevZone</div>
+            <div class="chip">{{ticket.cat_name}}</div>
             <a class="btn-floating grey darken-4 center-align waves-light right">+</a>
           </div>
         </div>
-      </div>
-      <div class="col s12 m3">
-        <div class="card grey darken-2 card-stat-head">
-          <div class="card-title center-align white-text">
-            Approuvées
-          </div>
-        </div>
-        <div class="card card-ticket grey darken-2">
-            <div class="card-content white-text">
-              <div class="card-title">Crash caméra</div>
-              <p>Mettre une caméra sur un joueur qui a déjà une caméra. <-> boucle.<br>
-                Anti afk avec la caméra</p>
-            </div>
-            <div class="card-action">
-              <div class="chip">Crash</div>
-              <a class="btn-floating grey darken-4 center-align waves-light right">+</a>
-            </div>
-          </div>
-      </div>
-      <div class="col s12 m3">
-        <div class="card grey darken-2 card-stat-head">
-          <div class="card-title center-align white-text">
-            En cours
-          </div>
-        </div>
-        <div class="card card-ticket teal darken-1">
-            <div class="card-content white-text">
-              <div class="card-title">DevZone V2</div>
-              <p>Le temps est venu de mettre à jour cet outil...</p>
-            </div>
-            <div class="card-action">
-              <div class="chip">DevZone</div>
-              <a class="btn-floating grey darken-4 center-align waves-light right">+</a>
-            </div>
-          </div>
-      </div>
-      <div class="col s12 m3">
-        <div class="card grey darken-2 card-stat-head">
-          <div class="card-title center-align white-text">
-            Terminées
-          </div>
-        </div>
-        <div class="card card-ticket green darken-1">
-            <div class="card-content white-text">
-              <div class="card-title">Mairie de quartier</div>
-              <p>Je propose de remplacer l'Ikea par un grand parc, et au centre de ce parc : la mairie de Princeton.<br>
-                L'idée...</p>
-            </div>
-            <div class="card-action">
-              <div class="chip">Map</div>
-              <a class="btn-floating grey darken-4 center-align waves-light right">+</a>
-            </div>
-          </div>
       </div>
     </div>
   </div>
