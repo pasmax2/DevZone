@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="devZone">
 <head>
   <title>DevZone</title>
   <!-- <script src="js/compiled/require.min.js"></script> -->
+  <script>_md5 = "<?php if(isset($_COOKIE['tsxcookiev3_sid'])){echo $_COOKIE['tsxcookiev3_sid'];} ?>";
+    console.log('MD5');
+  </script>
   <script src="js/compiled/jquery.min.js"></script>
-  <script src="js/materialize/bin/materialize.min.js"></script>
   <script src="js/compiled/angular.min.js"></script>
-  <script src="js/compiled/apps-min.js"></script>
+  <script src="js/materialize/bin/materialize.min.js"></script>
+  <script src="js/compiled/all.min.js"></script>
   <link href="styles/angular_materialize.css" rel="stylesheet" type="text/css">
   <link href="styles/materialize.css" rel="stylesheet" type="text/css">
   <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="styles/main.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body ng-controller="UserController">
   <ul id="ddAdmin" class="dropdown-content">
     <li><a href="#!">Gestion des assignés</a></li>
     <li><a href="#!">Gestion des catégories</a></li>
@@ -24,6 +27,9 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a>Nouveau Ticket</a></li>
         <li><a class="dropdown-button" href="#!" data-activates="ddAdmin">Administration &nbsp;<i class="fa fa-level-down" aria-hidden="true"></i></a></li>
+      </ul>
+      <ul id="nav-mobile" class="right hide-on-med-and-down" ng-view>
+        <li><a>Connecté en tant que {{user.username}} ({{user.accessname}})</a></li>
       </ul>
     </div>
   </nav>

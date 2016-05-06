@@ -1,4 +1,4 @@
-require('./compiled/jquery.min.js');
-require('./compiled/angular.min.js');
-// require('./materialize/bin/materialize.min.js');
+gDataOrig = 'https://www.ts-x.eu/api';
+// gDataOrig = 'http://127.0.0.1:8090';
+
 require('./apps.js');
