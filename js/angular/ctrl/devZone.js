@@ -8,7 +8,11 @@ exports = module.exports = function(app) {
     $http.get(gDataOrig+"/devzone/category").success(function(res){ 
       $scope.cats = res;
       gCats = res;
-      
+      console.log('omg');
+      for (var i in gCats){
+          $('#genSty').html($('#genSty').html()+'.cat'+gCats[i].cat_id+'{background-color:'+gCats[i].cat_color+';}\n');
+      }
+
       $http.get(gDataOrig+"/devzone/status").success(function(res){ 
         $scope.stat = res;
         gStat = res;
@@ -17,12 +21,7 @@ exports = module.exports = function(app) {
           $scope.tickets = res;
           for(var i=0; i<$scope.tickets.length; i++){
             $scope.tickets[i].desc = $scope.tickets[i].tk_showdesc ? shortenString($scope.tickets[i].tk_desc, 250) : false;
-            for(var j=0; j<gCats.length; j++){
-              if(gCats[j].cat_id == $scope.tickets[i].cat_id){
-                $scope.tickets[i].cat_name = gCats[j].cat_name;
-                break;
-              }
-            }
+            $scope.tickets[i].cat_name = gCats[$scope.tickets[i].cat_id].cat_name;
           }
           gTickets = $scope.tickets;
         });

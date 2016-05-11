@@ -14,6 +14,7 @@
   <link href="styles/materialize.css" rel="stylesheet" type="text/css">
   <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="styles/main.css" rel="stylesheet" type="text/css">
+  <style id="genSty"></style>
 </head>
 <body ng-controller="MainController">
   <ul id="ddAdmin" class="dropdown-content">
@@ -41,7 +42,7 @@
             {{stt.stat_name}}
           </div>
         </div>
-        <div class="card card-ticket teal darken-1" ng-repeat="ticket in tickets" ng-if="stt.stat_id == ticket.stat_id">
+        <div class="card card-ticket" ng-class="'cat'+ticket.cat_id" ng-repeat="ticket in tickets" ng-if="stt.stat_id == ticket.stat_id">
           <div class="card-content white-text">
             <div class="card-title">{{ticket.tk_title}}</div>
             <p ng-if="ticket.stat_id != 1 && ticket.tk_showdesc != 0">{{ticket.desc}}</p>
