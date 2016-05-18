@@ -5,8 +5,15 @@
   border-radius: 15px 15px 0 0;
   margin-bottom: 0; }
 
+.card {
+  margin: 5px 0; }
+
 .card-ticket .card-action {
-  padding: 10px 20px 15px 20px; }
+  padding: 10px 20px; }
 
 .card-ticket .card-content {
-  padding: 15px; }
+  padding: 5px 15px;
+  font-size: 14px; }
+
+.card-ticket .card-title {
+  font-size: 20px; }

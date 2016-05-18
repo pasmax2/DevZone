@@ -9,6 +9,7 @@
   <script src="js/compiled/jquery.min.js"></script>
   <script src="js/compiled/angular.min.js"></script>
   <script src="js/materialize/bin/materialize.min.js"></script>
+  <script src="js/compiled/angular-materialize.min.js"></script>
   <script src="js/compiled/all.min.js"></script>
   <link href="styles/angular_materialize.css" rel="stylesheet" type="text/css">
   <link href="styles/materialize.css" rel="stylesheet" type="text/css">
@@ -45,15 +46,39 @@
         <div class="card card-ticket" ng-class="'cat'+ticket.cat_id" ng-repeat="ticket in tickets" ng-if="stt.stat_id == ticket.stat_id">
           <div class="card-content white-text">
             <div class="card-title">{{ticket.tk_title}}</div>
-            <p ng-if="ticket.stat_id != 1 && ticket.tk_showdesc != 0">{{ticket.desc}}</p>
+            <p ng-if="ticket.stat_id != 1 && ticket.tk_showdesc != 0" class="grey-text text-lighten-2">{{ticket.desc}}</p>
           </div>
           <div class="card-action">
             <div class="chip">{{ticket.cat_name}}</div>
-            <a class="btn-floating grey darken-4 center-align waves-light right">+</a>
+            <a class="btn-floating grey darken-4 center-align waves-light right" ng-click="editTicket(ticket.tk_id);">+</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div id="modalEdit" class="modal">
+    <form>
+      <div class="modal-content row">
+        <div class="input-field col s6">
+          <input id="tkEdTitle" placeholder="titre" type="text" class="validate" ng-value="tkEdit.tk_title">
+          <label for="tkEdTitle">Titre</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <p>Posté par: {{tkEdit.usr_id}}</p>
+          <p>Le: {{tkEdit.tk_datecrea}}</p>
+          <p>Assigné à: {{tkEdit.assig_usr_id}}</p>
+          <p>Description: {{tkEdit.tk_desc}}</p>
+          <p>Statut: {{tkEdit.stat_name}}</p>
+          <p>Catégorie: {{tkEdit.cat_name}}</p>
+          <p>URL: {{tkEdit.tk_url}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close btn-flat">Fermer</a>
+      </div>
+    </form>
   </div>
 </body>
 </html>

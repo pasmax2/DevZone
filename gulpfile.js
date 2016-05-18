@@ -41,6 +41,6 @@ gulp.task('compreq', function() {
 
 gulp.task('watch', function() {
     gulp.watch('./sass/main.scss', ['minifycss']);
-    gulp.watch(['./js/apps.js','./js/angular/**/*.js'], ['compreq']);
+    gulp.watch(['./js/fetchReq.js','./js/apps.js','./js/angular/**/*.js'], ['compreq']);
     gulp.watch(['./sass/materialize.scss','./sass/components/*.scss'], ['matScss', 'minifycss']);
 });

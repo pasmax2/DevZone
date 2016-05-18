@@ -3376,7 +3376,8 @@ small {
       margin: 0;
       color: inherit; }
     .card .card-content .card-title {
-      line-height: 48px; }
+      padding-top: 12px;
+      padding-bottom: 12px; }
   .card .card-action {
     position: relative;
     background-color: inherit;
