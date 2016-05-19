@@ -21,3 +21,19 @@
       font-size: 20px;
   }
 }
+.modal{
+  max-height: 90%; 
+  &#modalEdit{
+    height: 85%;
+  }
+  .modal-content{
+    .row{
+      margin-bottom:0;
+      p{
+        margin-top:10px;
+        margin-bottom:10px;
+      }
+    } 
+  }
+}
+

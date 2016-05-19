@@ -17,3 +17,13 @@
 
 .card-ticket .card-title {
   font-size: 20px; }
+
+.modal {
+  max-height: 90%; }
+  .modal#modalEdit {
+    height: 85%; }
+  .modal .modal-content .row {
+    margin-bottom: 0; }
+    .modal .modal-content .row p {
+      margin-top: 10px;
+      margin-bottom: 10px; }

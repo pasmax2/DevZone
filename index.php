@@ -56,24 +56,87 @@
       </div>
     </div>
   </div>
-  <div id="modalEdit" class="modal">
+  <div id="modalEdit" class="modal modal-fixed-footer">
     <form>
-      <div class="modal-content row">
-        <div class="input-field col s6">
-          <input id="tkEdTitle" placeholder="titre" type="text" class="validate" ng-value="tkEdit.tk_title">
-          <label for="tkEdTitle">Titre</label>
+      <div class="modal-content">
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input placeholder="titre" type="text" class="validate" ng-value="tkEdit.tk_title">
+            <label>Titre</label>
+          </div>
+          <div class="input-field col s12 m3">
+          </div>
+          <div class="input-field col s12 m3">
+            <select class="">
+              <option value="">TODO</option>
+            </select>
+            <label>Catégorie:</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          <p>Posté par: {{tkEdit.usr_id}}</p>
-          <p>Le: {{tkEdit.tk_datecrea}}</p>
-          <p>Assigné à: {{tkEdit.assig_usr_id}}</p>
-          <p>Description: {{tkEdit.tk_desc}}</p>
-          <p>Statut: {{tkEdit.stat_name}}</p>
-          <p>Catégorie: {{tkEdit.cat_name}}</p>
-          <p>URL: {{tkEdit.tk_url}}</p>
+        
+        <div class="row">
+          <div class="col s12">
+            <p>Posté par <strong ng-bind="getNameById(tkEdit.usr_id)"></strong>, le <strong>{{tsToDate(tkEdit.tk_datecrea)}}</strong></p>
+            <p>Statut: <strong ng-bind="stat[tkEdit.stat_id].stat_name"></strong></p>
+          </div>
         </div>
+        
+        <div class="row">
+          <div class="input-field col s3">
+            <select class="">
+              <option value="">TODO</option>
+            </select>
+            <label>Assigné à:</label>
+          </div>
+          <div class="input-field col s2">
+          </div>
+          <div class="input-field col s6">
+            <select class="">
+              <option value="">TODO</option>
+            </select>
+            <label>Job</label>
+          </div>
+        </div>
+                
+        <div class="row">
+          <div class="input-field col s9">
+            <p class="range-field">Progression: 
+            <input type="range" min="0" max="100"/>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s6">
+            <p>Description:</p>
+          </div>
+          <div class="input-field col s6">
+            <div class="switch">
+              <label>
+                Masquer
+                <input type="checkbox">
+                <span class="lever"></span>
+                Afficher
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea class="materialize-textarea">{{tkEdit.tk_desc}}</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input placeholder="URL Forum" type="text" class="validate" ng-value="tkEdit.tk_url">
+            <label>URL Forum</label>
+          </div>
+        </div>
+        
+        <p>TODO: Commentaires</p>
+
       </div>
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close btn-flat">Fermer</a>

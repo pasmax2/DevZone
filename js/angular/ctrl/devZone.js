@@ -1,9 +1,57 @@
-exports = module.exports = function(app) {
-  var gUser, gTickets, gCats, gStat, gAssig;
+exports = module.exports = function(app){
+  var gUser, gTickets, gCats, gStat, gAssig, gUsers ={}, gUserW;
   app.controller('MainController', function($scope, $http, $sce){
+    
+    $scope.editTicket = function(tkId){
+      $http.get(gDataOrig+"/devzone/ticket/"+tkId).success(function(res){
+        $scope.tkEdit = res[0];
+        console.log($scope.tkEdit);
+        $('#modalEdit').openModal();
+        $('select').material_select();
+      });
+    };
+    
+    $scope.getNameById = function(uid){
+      if(!uid || gUserW)
+        return '';
+      if(gUsers[uid])
+        return gUsers[uid].username;
+      gUserW = true;
+      $http.get(gDataOrig+"/devzone/user/"+uid).success(function(res){
+        gUserW = false;
+        gUsers[uid] = res;
+        return res.username;
+      });
+    };
+    
+    $scope.tsToDate = function(ts){
+      var dt = new Date(ts*1000);
+      var day = dt.getDate() < 10 ? '0'+dt.getDate() : dt.getDate(); 
+      var month = dt.getMonth()+1 < 10 ? '0'+(dt.getMonth()+1) : dt.getMonth()+1;
+      var hour = dt.getHours() < 10 ? '0'+dt.getHours() : dt.getHours();
+      var min = dt.getMinutes() < 10 ? '0'+dt.getMinutes() : dt.getMinutes();
+      return day+'/'+month+'/'+dt.getFullYear()+' à '+hour+':'+min;
+    };
+    
+    var dataGet = {};
+    window.location.href.replace( location.hash, '' ).replace( 
+    /[?&]+([^=&]+)=?([^&]*)?/gi,
+    function( m, key, value ) {
+        dataGet[key] = value !== undefined ? value : '';
+    });
+    if(dataGet.more)
+      $scope.editTicket(dataGet.more);
+        
     $http.get(gDataOrig+"/devzone/user").success(function(res){
       $scope.user = res;
       gUser = res;
+    });
+    $http.get(gDataOrig+"/devzone/assigne").success(function(res){
+      $scope.assignes = res;
+      gAssig = res;
+      for (var i = 0; i < gAssig.length; i++) {
+        $scope.getNameById(gAssig[i]);
+      }
     });
     $http.get(gDataOrig+"/devzone/category").success(function(res){ 
       $scope.cats = res;
@@ -29,14 +77,6 @@ exports = module.exports = function(app) {
       });
       
     });
-
-  $scope.editTicket = function(tkId){
-    $http.get(gDataOrig+"/devzone/ticket/"+tkId).success(function(res){
-      $scope.tkEdit = res[0];
-      console.log($scope.tkEdit);
-      $('#modalEdit').openModal();
-    });
-  };
 
   });
 };
