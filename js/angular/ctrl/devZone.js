@@ -1,5 +1,5 @@
 exports = module.exports = function(app){
-  var gUser, gTickets, gCats, gStat, gAssig, gUsers ={}, gUserW;
+  var gUser, gTickets, gCats, gStat, gAssig, gUsers ={}, gUserW, gJobs;
   app.controller('MainController', function($scope, $http, $sce){
     
     $scope.editTicket = function(tkId){
@@ -7,6 +7,9 @@ exports = module.exports = function(app){
         $scope.tkEdit = res[0];
         console.log($scope.tkEdit);
         $('#modalEdit').openModal();
+        $('#mECat [value='+$scope.tkEdit.cat_id+']').prop('selected', true);
+        $('#mEJob [value='+$scope.tkEdit.tk_esttime+']').prop('selected', true);
+        $('#mEAss [value='+$scope.tkEdit.assig_usr_id+']').prop('selected', true);
         $('select').material_select();
       });
     };
@@ -45,6 +48,10 @@ exports = module.exports = function(app){
     $http.get(gDataOrig+"/devzone/user").success(function(res){
       $scope.user = res;
       gUser = res;
+    });
+    $http.get(gDataOrig+"/jobs").success(function(res){
+      $scope.jobs = res;
+      gJobs = res;
     });
     $http.get(gDataOrig+"/devzone/assigne").success(function(res){
       $scope.assignes = res;

@@ -30,7 +30,7 @@
         <li><a>Nouveau Ticket</a></li>
         <li><a class="dropdown-button" href="#!" data-activates="ddAdmin">Administration &nbsp;<i class="fa fa-level-down" aria-hidden="true"></i></a></li>
       </ul>
-      <ul id="nav-mobile" class="right hide-on-med-and-down" ng-view>
+      <ul class="right hide-on-med-and-down" ng-view>
         <li><a>Connecté en tant que {{user.username}} ({{user.accessname}})</a></li>
       </ul>
     </div>
@@ -61,14 +61,14 @@
       <div class="modal-content">
         <div class="row">
           <div class="input-field col s12 m6">
-            <input placeholder="titre" type="text" class="validate" ng-value="tkEdit.tk_title">
+            <input placeholder="titre" type="text" class="validate" ng-model="tkEdit.tk_title">
             <label>Titre</label>
           </div>
           <div class="input-field col s12 m3">
           </div>
           <div class="input-field col s12 m3">
-            <select class="">
-              <option value="">TODO</option>
+            <select id="mECat" class="" ng-model="tkEdit.cat_id">
+              <option ng-repeat="cat in cats" ng-value="cat.cat_id" ng-bind="cat.cat_name"></option>
             </select>
             <label>Catégorie:</label>
           </div>
@@ -83,16 +83,18 @@
         
         <div class="row">
           <div class="input-field col s3">
-            <select class="">
-              <option value="">TODO</option>
+            <select id="mEAss" class="" ng-model="tkEdit.assig_usr_id">
+              <option value="" selected>Personne</option>
+              <option ng-repeat="assigne in assignes" ng-value="assigne" ng-bind="getNameById(assigne)"></option>
             </select>
             <label>Assigné à:</label>
           </div>
           <div class="input-field col s2">
           </div>
           <div class="input-field col s6">
-            <select class="">
-              <option value="">TODO</option>
+            <select id="mEJob" class=""  ng-model="tkEdit.tk_esttime">
+              <option value="0" selected>Aucun job</option>
+              <option ng-repeat="job in jobs" ng-value="job.id" ng-bind="job.name"></option>
             </select>
             <label>Job</label>
           </div>
@@ -101,7 +103,7 @@
         <div class="row">
           <div class="input-field col s9">
             <p class="range-field">Progression: 
-            <input type="range" min="0" max="100"/>
+            <input type="range" min="0" max="100" ng-model="tkEdit.tk_ava"/>
             </p>
           </div>
         </div>
@@ -114,7 +116,7 @@
             <div class="switch">
               <label>
                 Masquer
-                <input type="checkbox">
+                <input type="checkbox" ng-model="tkEdit.tk_showdesc" ng-true-value="1" ng-false-value="0">
                 <span class="lever"></span>
                 Afficher
               </label>
@@ -124,13 +126,13 @@
         
         <div class="row">
           <div class="input-field col s12">
-            <textarea class="materialize-textarea">{{tkEdit.tk_desc}}</textarea>
+            <textarea class="materialize-textarea" ng-model="tkEdit.tk_desc"></textarea>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12 m6">
-            <input placeholder="URL Forum" type="text" class="validate" ng-value="tkEdit.tk_url">
+            <input placeholder="URL Forum" type="text" class="validate" ng-model="tkEdit.tk_url">
             <label>URL Forum</label>
           </div>
         </div>
