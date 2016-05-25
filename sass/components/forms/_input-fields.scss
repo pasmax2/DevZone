@@ -51,17 +51,17 @@ textarea.materialize-textarea {
   transition: $input-transition;
 
   // Disabled input style
-  &:disabled,
-  &[readonly="readonly"] {
-    color: $input-disabled-color;
-    border-bottom: $input-disabled-border;
-  }
+  // &:disabled,
+  // &[readonly="readonly"] {
+  //   color: $input-disabled-color;
+  //   border-bottom: $input-disabled-border;
+  // }
 
-  // Disabled label style
-  &:disabled+label,
-  &[readonly="readonly"]+label {
-    color: $input-disabled-color;
-  }
+  // // Disabled label style
+  // &:disabled+label,
+  // &[readonly="readonly"]+label {
+  //   color: $input-disabled-color;
+  // }
 
   // Focused input style
   &:focus:not([readonly]) {

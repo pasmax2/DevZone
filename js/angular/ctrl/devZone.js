@@ -3,20 +3,52 @@ exports = module.exports = function(app){
   app.controller('MainController', function($scope, $http, $sce){
     
     $scope.editTicket = function(tkId){
+      $('#modalEdit').openModal();
       $http.get(gDataOrig+"/devzone/ticket/"+tkId).success(function(res){
         $scope.tkEdit = res[0];
-        console.log($scope.tkEdit);
-        $('#modalEdit').openModal();
-        $('#mECat [value='+$scope.tkEdit.cat_id+']').prop('selected', true);
-        $('#mEJob [value='+$scope.tkEdit.tk_esttime+']').prop('selected', true);
-        $('#mEAss [value='+$scope.tkEdit.assig_usr_id+']').prop('selected', true);
-        $('select').material_select();
+        $scope.tkEdit.readonly = (function(user, tkEdit){
+          if(user.accesslevel >= 40)
+            return false;
+          if(user.uid == tkEdit.usr_id){
+            if(tkEdit.stat_id == 1)
+              return false;
+          }
+          return true;
+        })($scope.user, $scope.tkEdit);
+        $scope.tkEdit.assig_usr_id = $scope.tkEdit.assig_usr_id.toString();
+      });
+    };
+    
+    $scope.toInt = function(i){
+      return i << 0;
+    };
+    
+    $scope.saveTkEdit = function(){
+      var tk = $scope.tkEdit;
+      $http({
+        method: 'POST',
+        url: gDataOrig+"/devzone/ticket/"+tk.tk_id,
+        data:{
+          title: tk.tk_title,
+          job: tk.tk_esttime,
+          assig: parseInt(tk.assig_usr_id),
+          avancement: parseInt(tk.tk_ava),
+          desc: tk.tk_desc,
+          url: tk.tk_url,
+          showdesc: tk.tk_showdesc,
+          category: tk.cat_id
+        }
+      }).then(function(res) {
+        $scope.tkEdit = null;
+        $scope.loadTickets();
       });
     };
     
     $scope.getNameById = function(uid){
       if(!uid || gUserW)
-        return '';
+        return 'Personne';
+      if(uid == '0')
+        return 'Personne';
       if(gUsers[uid])
         return gUsers[uid].username;
       gUserW = true;
@@ -24,6 +56,26 @@ exports = module.exports = function(app){
         gUserW = false;
         gUsers[uid] = res;
         return res.username;
+      });
+    };
+    
+    $scope.getJobNameById = function(jid){
+      if(jid == '0')
+        return 'Aucun';
+      for (var i = 0; i < $scope.jobs.length; i++) {
+        if($scope.jobs[i].id == jid)
+          return $scope.jobs[i].name;
+      }
+    };
+    
+    $scope.loadTickets = function(){
+      $http.get(gDataOrig+"/devzone/ticket").success(function(res){ 
+        $scope.tickets = res;
+        for(var i=0; i<$scope.tickets.length; i++){
+          $scope.tickets[i].desc = $scope.tickets[i].tk_showdesc ? $sce.trustAsHtml(shortenString($scope.tickets[i].tk_desc, 250)) : false;
+          $scope.tickets[i].cat_name = gCats[$scope.tickets[i].cat_id].cat_name;
+        }
+        gTickets = $scope.tickets;
       });
     };
     
@@ -50,10 +102,15 @@ exports = module.exports = function(app){
       gUser = res;
     });
     $http.get(gDataOrig+"/jobs").success(function(res){
+      res.unshift({
+        name:'Aucun job',
+        id:0
+      });
       $scope.jobs = res;
       gJobs = res;
     });
     $http.get(gDataOrig+"/devzone/assigne").success(function(res){
+      res.unshift('0');
       $scope.assignes = res;
       gAssig = res;
       for (var i = 0; i < gAssig.length; i++) {
@@ -63,7 +120,6 @@ exports = module.exports = function(app){
     $http.get(gDataOrig+"/devzone/category").success(function(res){ 
       $scope.cats = res;
       gCats = res;
-      console.log('omg');
       for (var i in gCats){
           $('#genSty').html($('#genSty').html()+'.cat'+gCats[i].cat_id+'{background-color:'+gCats[i].cat_color+';}\n');
       }
@@ -72,14 +128,7 @@ exports = module.exports = function(app){
         $scope.stat = res;
         gStat = res;
         
-        $http.get(gDataOrig+"/devzone/ticket").success(function(res){ 
-          $scope.tickets = res;
-          for(var i=0; i<$scope.tickets.length; i++){
-            $scope.tickets[i].desc = $scope.tickets[i].tk_showdesc ? $sce.trustAsHtml(shortenString($scope.tickets[i].tk_desc, 250)) : false;
-            $scope.tickets[i].cat_name = gCats[$scope.tickets[i].cat_id].cat_name;
-          }
-          gTickets = $scope.tickets;
-        });
+        $scope.loadTickets();
         
       });
       

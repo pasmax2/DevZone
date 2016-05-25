@@ -55,9 +55,9 @@ select {
 }
 
 // Disabled styles
-select:disabled {
-  color: rgba(0,0,0,.3);
-}
+// select:disabled {
+//   color: rgba(0,0,0,.3);
+// }
 
 .select-wrapper input.select-dropdown:disabled {
   color: rgba(0,0,0,.3);

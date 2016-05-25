@@ -3,9 +3,7 @@
 <head>
   <title>DevZone</title>
   <!-- <script src="js/compiled/require.min.js"></script> -->
-  <script>_md5 = "<?php if(isset($_COOKIE['tsxcookiev3_sid'])){echo $_COOKIE['tsxcookiev3_sid'];} ?>";
-    console.log('MD5');
-  </script>
+  <script>_md5 = "<?php if(isset($_COOKIE['tsxcookiev3_sid'])){echo $_COOKIE['tsxcookiev3_sid'];} ?>";</script>
   <script src="js/compiled/jquery.min.js"></script>
   <script src="js/compiled/angular.min.js"></script>
   <script src="js/materialize/bin/materialize.min.js"></script>
@@ -61,16 +59,15 @@
       <div class="modal-content">
         <div class="row">
           <div class="input-field col s12 m6">
-            <input placeholder="titre" type="text" class="validate" ng-model="tkEdit.tk_title">
+            <input placeholder="titre" type="text" ng-model="tkEdit.tk_title" ng-readonly="tkEdit.readonly">
             <label>Titre</label>
           </div>
           <div class="input-field col s12 m3">
           </div>
-          <div class="input-field col s12 m3">
-            <select id="mECat" class="" ng-model="tkEdit.cat_id">
-              <option ng-repeat="cat in cats" ng-value="cat.cat_id" ng-bind="cat.cat_name"></option>
-            </select>
+          <div class="col s12 m3">
             <label>Catégorie:</label>
+            <select id="mECat" ng-model="tkEdit.cat_id" class="browser-default" ng-options="i.cat_id as i.cat_name for i in cats" ng-disabled="tkEdit.readonly">
+            </select>
           </div>
         </div>
         
@@ -82,28 +79,24 @@
         </div>
         
         <div class="row">
-          <div class="input-field col s3">
-            <select id="mEAss" class="" ng-model="tkEdit.assig_usr_id">
-              <option value="" selected>Personne</option>
-              <option ng-repeat="assigne in assignes" ng-value="assigne" ng-bind="getNameById(assigne)"></option>
-            </select>
+          <div class="col s3">
             <label>Assigné à:</label>
+            <select id="mEAss" class="browser-default" ng-model="tkEdit.assig_usr_id" ng-options="i as getNameById(i) for i in assignes" ng-disabled="!user.assigne">
+            </select>
           </div>
           <div class="input-field col s2">
           </div>
-          <div class="input-field col s6">
-            <select id="mEJob" class=""  ng-model="tkEdit.tk_esttime">
-              <option value="0" selected>Aucun job</option>
-              <option ng-repeat="job in jobs" ng-value="job.id" ng-bind="job.name"></option>
-            </select>
+          <div class="col s6">
             <label>Job</label>
+            <select id="mEJob" class="browser-default"  ng-model="tkEdit.tk_esttime" ng-options="i.id as i.name for i in jobs" ng-disabled="tkEdit.readonly">
+            </select>
           </div>
         </div>
                 
         <div class="row">
           <div class="input-field col s9">
             <p class="range-field">Progression: 
-            <input type="range" min="0" max="100" ng-model="tkEdit.tk_ava"/>
+            <input type="range" min="0" max="100" ng-model="tkEdit.tk_ava" ng-readonly="!user.assigne">
             </p>
           </div>
         </div>
@@ -116,7 +109,7 @@
             <div class="switch">
               <label>
                 Masquer
-                <input type="checkbox" ng-model="tkEdit.tk_showdesc" ng-true-value="1" ng-false-value="0">
+                <input type="checkbox" ng-model="tkEdit.tk_showdesc" ng-true-value="1" ng-false-value="0" ng-disabled="tkEdit.readonly">
                 <span class="lever"></span>
                 Afficher
               </label>
@@ -126,13 +119,13 @@
         
         <div class="row">
           <div class="input-field col s12">
-            <textarea class="materialize-textarea" ng-model="tkEdit.tk_desc"></textarea>
+            <textarea class="materialize-textarea" ng-model="tkEdit.tk_desc" ng-readonly="tkEdit.readonly"></textarea>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12 m6">
-            <input placeholder="URL Forum" type="text" class="validate" ng-model="tkEdit.tk_url">
+            <input placeholder="URL Forum" type="text" ng-model="tkEdit.tk_url" ng-readonly="tkEdit.readonly">
             <label>URL Forum</label>
           </div>
         </div>
@@ -142,6 +135,7 @@
       </div>
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close btn-flat">Fermer</a>
+        <a href="#!" class=" modal-action modal-close btn-flat green" ng-click="saveTkEdit()" ng-if="!tkEdit.readonly">Sauvegarder</a>
       </div>
     </form>
   </div>
