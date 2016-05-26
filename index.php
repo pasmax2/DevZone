@@ -25,7 +25,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">DevZone</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a>Nouveau Ticket</a></li>
+        <li><a ng-click="newTicket();">Nouveau Ticket</a></li>
         <li><a class="dropdown-button" href="#!" data-activates="ddAdmin">Administration &nbsp;<i class="fa fa-level-down" aria-hidden="true"></i></a></li>
       </ul>
       <ul class="right hide-on-med-and-down" ng-view>
@@ -48,10 +48,26 @@
           </div>
           <div class="card-action">
             <div class="chip">{{ticket.cat_name}}</div>
+            <div class="chip green darken-3" ng-show="ticket.tk_url != ''"><a ng-href="{{ticket.tk_url}}" rel="nofollow" target="_blank" class="white-text">Forum</a></div>
             <a class="btn-floating grey darken-4 center-align waves-light right" ng-click="editTicket(ticket.tk_id);">+</a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div id="modalDel" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Supprimer le ticket: {{tkEdit.tk_title}}</h4>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea class="materialize-textarea" placeholder="Obligatoire" required ng-model="tkEdit.tk_delr"></textarea>
+          <label>Raison de supression</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close btn-flat red" ng-click="deleteTk()">Supprimer</a>
+      <a href="#!" class="modal-action modal-close btn-flat green" ng-click="openEdit()">Annuler</a>
     </div>
   </div>
   <div id="modalEdit" class="modal modal-fixed-footer">
@@ -71,7 +87,7 @@
           </div>
         </div>
         
-        <div class="row">
+        <div class="row" ng-show="tkEdit.tk_id!==null">
           <div class="col s12">
             <p>Posté par <strong ng-bind="getNameById(tkEdit.usr_id)"></strong>, le <strong>{{tsToDate(tkEdit.tk_datecrea)}}</strong></p>
             <p>Statut: <strong ng-bind="stat[tkEdit.stat_id].stat_name"></strong></p>
@@ -79,7 +95,7 @@
         </div>
         
         <div class="row">
-          <div class="col s3">
+          <div class="col s3" ng-show="tkEdit.tk_id!==null">
             <label>Assigné à:</label>
             <select id="mEAss" class="browser-default" ng-model="tkEdit.assig_usr_id" ng-options="i as getNameById(i) for i in assignes" ng-disabled="!user.assigne">
             </select>
@@ -93,7 +109,7 @@
           </div>
         </div>
                 
-        <div class="row">
+        <div class="row" ng-show="tkEdit.tk_id!==null">
           <div class="input-field col s9">
             <p class="range-field">Progression: 
             <input type="range" min="0" max="100" ng-model="tkEdit.tk_ava" ng-readonly="!user.assigne">
@@ -129,13 +145,12 @@
             <label>URL Forum</label>
           </div>
         </div>
-        
-        <p>TODO: Commentaires</p>
 
       </div>
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close btn-flat">Fermer</a>
-        <a href="#!" class=" modal-action modal-close btn-flat green" ng-click="saveTkEdit()" ng-if="!tkEdit.readonly">Sauvegarder</a>
+        <a href="#!" class=" modal-action modal-close btn-flat green darken-1" ng-click="saveTkEdit()" ng-if="!tkEdit.readonly">Sauvegarder</a>
+        <a href="#!" class=" modal-action modal-close btn-flat red darken-1 left" ng-click="deleteTk()" ng-if="!tkEdit.readonly">Supprimer</a>
       </div>
     </form>
   </div>

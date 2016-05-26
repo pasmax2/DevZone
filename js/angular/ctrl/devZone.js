@@ -19,29 +19,112 @@ exports = module.exports = function(app){
       });
     };
     
+    $scope.openEdit = function(){
+      $('#modalEdit').openModal();
+    };
+    
+    $scope.newTicket = function(){
+      if($scope.user.accesslevel >= 10){
+        $scope.tkEdit = {          
+          tk_title: '',
+          tk_esttime: 0,
+          assig_usr_id: '0',
+          tk_ava: 0,
+          tk_desc: '',
+          tk_url: '',
+          tk_showdesc: 1,
+          cat_id: 1,
+          tk_id: null
+        };
+        $('#modalEdit').openModal();
+      }
+      else{
+        Materialize.toast('Il vous faut au minimum le grade no-pij pour poster un ticket!', 6000, 'red');
+      }
+    };
+    
     $scope.toInt = function(i){
       return i << 0;
     };
     
+    $scope.deleteTk = function(){
+      if($scope.tkEdit.tk_delr){
+        $http({
+          method: 'DELETE',
+          url: gDataOrig+"/devzone/ticket/"+$scope.tkEdit.tk_id,
+          data:{
+            reason: $scope.tkEdit.tk_delr
+          }
+        }).then(function(res) {
+          if(res.data == 'OK'){
+            Materialize.toast('Le ticket a été supprimé!', 6000, 'green');
+            $scope.tkEdit = null;
+            $scope.loadTickets();
+          }
+          else{
+            Materialize.toast('Une erreur est survenue lors de la supression!', 6000, 'red');
+            $('#modalEdit').openModal();
+          }
+        });
+      }
+      else{
+        $scope.tkEdit.tk_delr = '';
+        $('#modalDel').openModal();
+      }
+    };
+    
     $scope.saveTkEdit = function(){
       var tk = $scope.tkEdit;
-      $http({
-        method: 'POST',
-        url: gDataOrig+"/devzone/ticket/"+tk.tk_id,
-        data:{
-          title: tk.tk_title,
-          job: tk.tk_esttime,
-          assig: parseInt(tk.assig_usr_id),
-          avancement: parseInt(tk.tk_ava),
-          desc: tk.tk_desc,
-          url: tk.tk_url,
-          showdesc: tk.tk_showdesc,
-          category: tk.cat_id
-        }
-      }).then(function(res) {
-        $scope.tkEdit = null;
-        $scope.loadTickets();
-      });
+      if(tk.tk_id !== null){ // Edition de ticket
+        $http({
+          method: 'POST',
+          url: gDataOrig+"/devzone/ticket/"+tk.tk_id,
+          data:{
+            title: tk.tk_title,
+            job: tk.tk_esttime,
+            assig: parseInt(tk.assig_usr_id),
+            avancement: parseInt(tk.tk_ava),
+            desc: tk.tk_desc,
+            url: tk.tk_url,
+            showdesc: tk.tk_showdesc,
+            category: tk.cat_id
+          }
+        }).then(function(res) {
+          if(res.data == 'ok'){
+            Materialize.toast('Les modifications ont été sauvegardées!', 6000, 'green');
+            $scope.tkEdit = null;
+            $scope.loadTickets();
+          }
+          else{
+            Materialize.toast('Une erreur est survenue lors de la sauvegarde!', 6000, 'red');
+            $('#modalEdit').openModal();
+          }
+        });
+      }
+      else{ // Nouveau ticket
+        $http({
+          method: 'PUT',
+          url: gDataOrig+"/devzone/ticket",
+          data:{
+            title: tk.tk_title,
+            job: tk.tk_esttime,
+            desc: tk.tk_desc,
+            url: tk.tk_url,
+            showdesc: tk.tk_showdesc,
+            category: tk.cat_id
+          }
+        }).then(function(res) {
+          if(res.data == 'ok'){
+            Materialize.toast('Le ticket a été ajouté, il sera consulté sous peu par un administrateur ', 6000, 'green');
+            $scope.tkEdit = null;
+            $scope.loadTickets();
+          }
+          else{
+            Materialize.toast('Une erreur est survenue lors de la sauvegarde!', 6000, 'red');
+            $('#modalEdit').openModal();
+          }
+        });
+      }
     };
     
     $scope.getNameById = function(uid){

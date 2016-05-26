@@ -107,8 +107,8 @@
     z-index: 2;
 
     a:not(.btn):not(.btn-large):not(.btn-floating) {
-      color: $card-link-color;
-      margin-right: $card-padding;
+      // color: $card-link-color;
+      // margin-right: $card-padding;
       transition: color .3s ease;
       text-transform: uppercase;
 
