@@ -49,6 +49,8 @@
           <div class="card-action">
             <div class="chip">{{ticket.cat_name}}</div>
             <div class="chip green darken-3" ng-show="ticket.tk_url != ''"><a ng-href="{{ticket.tk_url}}" rel="nofollow" target="_blank" class="white-text">Forum</a></div>
+            <div class="chip blue darken-3 white-text" ng-show="ticket.assig_usr_id == user.uid && user.uid != 0">Assigné</div>
+            <div class="chip grey darken-4 white-text" ng-show="ticket.usr_id == user.uid && user.uid != 0">Auteur</div>
             <a class="btn-floating grey darken-4 center-align waves-light right" ng-click="editTicket(ticket.tk_id);">+</a>
           </div>
         </div>
