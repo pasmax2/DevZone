@@ -1,5 +1,5 @@
-// gDataOrig = 'https://www.ts-x.eu/api';
-gDataOrig = 'http://localhost:8090';
+gDataOrig = 'https://www.ts-x.eu/api';
+// gDataOrig = 'http://localhost:8090';
 
 shortenString = function (str, len){
   if(str.length <= len){
