@@ -4,6 +4,7 @@ exports = module.exports = function(app){
     
     $scope.editTicket = function(tkId){
       $('#modalEdit').openModal();
+      history.pushState({}, "Editer", "?more="+tkId);
       $http.get(gDataOrig+"/devzone/ticket/"+tkId).success(function(res){
         $scope.tkEdit = res[0];
         $scope.tkEdit.readonly = (function(user, tkEdit){
