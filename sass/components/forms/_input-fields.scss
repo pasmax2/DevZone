@@ -37,7 +37,7 @@ textarea.materialize-textarea {
 
   // General Styles
   background-color: transparent;
-  border: none;
+  // border: none;
   border-bottom: $input-border;
   border-radius: 0;
   outline: none;
@@ -46,7 +46,7 @@ textarea.materialize-textarea {
   font-size: $input-font-size;
   margin: $input-margin;
   padding: $input-padding;
-  box-shadow: none;
+  // box-shadow: none;
   box-sizing: content-box;
   transition: $input-transition;
 
@@ -129,7 +129,7 @@ textarea.materialize-textarea {
   label {
     color: $input-border-color;
     position: absolute;
-    top: 0.8rem;
+    top: 0.4rem;
     left: $gutter-width / 2;
     font-size: 1rem;
     cursor: text;
