@@ -35,7 +35,7 @@
   </nav>
   <div class="container">
     <div class="row">
-      <div class="col s12 m3" ng-repeat="stt in stat" ng-if="stt.stat_hidden==0">
+      <div class="col s12 m6 l3" ng-repeat="stt in stat" ng-if="stt.stat_hidden==0">
         <div class="card grey darken-2 card-stat-head">
           <div class="card-title center-align white-text">
             {{stt.stat_name}}
@@ -80,7 +80,7 @@
             <input placeholder="titre" type="text" ng-model="tkEdit.tk_title" ng-readonly="tkEdit.readonly">
             <label>Titre</label>
           </div>
-          <div class="input-field col s12 m3">
+          <div class="input-field col s12 m6 l3">
           </div>
           <div class="col s12 m3">
             <label>Catégorie:</label>
@@ -97,7 +97,7 @@
         </div>
         
         <div class="row">
-          <div class="col s3" ng-show="tkEdit.tk_id!==null">
+          <div class="col m3 s12" ng-show="tkEdit.tk_id!==null">
             <label>Assigné à:</label>
             <select id="mEAss" class="browser-default" ng-model="tkEdit.assig_usr_id" ng-options="i as getNameById(i) for i in assignes" ng-disabled="!user.assigne">
             </select>
@@ -112,7 +112,7 @@
         </div>
                 
         <div class="row" ng-show="tkEdit.tk_id!==null">
-          <div class="input-field col s9">
+          <div class="input-field col s9 l7">
             <p class="range-field">Progression: 
             <input type="range" min="0" max="100" ng-model="tkEdit.tk_ava" ng-readonly="!user.assigne">
             </p>

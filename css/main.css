@@ -14,9 +14,11 @@
 .card-ticket .card-content {
   padding: 5px 15px;
   font-size: 14px; }
-
-.card-ticket .card-title {
-  font-size: 20px; }
+  .card-ticket .card-content .card-title {
+    font-size: 16px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-weight: 400; }
 
 .modal {
   max-height: 90%; }
@@ -27,3 +29,12 @@
     .modal .modal-content .row p {
       margin-top: 10px;
       margin-bottom: 10px; }
+
+.chip {
+  height: 24px;
+  line-height: 24px; }
+
+.btn-floating {
+  width: 28px;
+  height: 28px;
+  line-height: 28px; }
