@@ -121,7 +121,7 @@
         
         <div class="row">
           <div class="input-field col s6">
-            <p>Description:</p>
+            <p>Description :</p>
           </div>
           <div class="input-field col s6">
             <div class="switch">
@@ -147,7 +147,25 @@
             <label>URL Forum</label>
           </div>
         </div>
-
+        <div class="row" ng-show="tkEdit.tk_id!==null">
+          <ul class="collection" ng-if="tkEdit.comments.length">
+             <li class="collection-item" ng-repeat="com in tkEdit.comments">
+               <span class="title" ng-bind="getNameById(com.usr_id)"></span>
+               <a href="#!" class="secondary-content" ng-click="deleteCom(com.com_id)" ng-if="user.accesslevel >= 40"><i class="fa fa-trash-o"></i></a>
+               <p ng-bind="com.com_text"></p>
+             </li>
+          </ul>
+        </div>
+        <div class="row" ng-show="tkEdit.tk_id!==null">
+          <div class="input-field col s12 m6">
+            <input placeholder="Commentaire" type="text" ng-model="tkEdit.tk_comment" ng-if="user.accesslevel >= 10">
+            <label>Ajouter un commentaire</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <a href="#!" class="btn-flat green darken-1" ng-click="addCom()" ng-show="!tkEdit.working && tkEdit.tk_comment.length >= 3">Poster le commentaire</a>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close btn-flat">Fermer</a>

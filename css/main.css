@@ -23,7 +23,9 @@
 .modal {
   max-height: 90%; }
   .modal#modalEdit {
-    height: 85%; }
+    height: 95%;
+    max-height: 95%;
+    top: 2.5% !important; }
   .modal .modal-content .row {
     margin-bottom: 0; }
     .modal .modal-content .row p {

@@ -1,11 +1,15 @@
 exports = module.exports = function(app){
   var gUser, gTickets, gCats, gStat, gAssig, gUsers ={}, gUserW, gJobs;
   app.controller('MainController', function($scope, $http, $sce){
-    
     $scope.editTicket = function(tkId){
+      if($scope.tkEdit !== undefined)
+        $scope.tkEdit.comments = [];
       $('#modalEdit').openModal();
       history.pushState({}, "Editer", "?more="+tkId);
       $http.get(gDataOrig+"/devzone/ticket/"+tkId).success(function(res){
+          $http.get(gDataOrig+"/devzone/ticket/"+tkId+"/comment").success(function(res){
+            $scope.tkEdit.comments = res;
+          });
         $scope.tkEdit = res[0];
         $scope.tkEdit.readonly = (function(user, tkEdit){
           if(user.accesslevel >= 40)
@@ -35,7 +39,8 @@ exports = module.exports = function(app){
           tk_url: '',
           tk_showdesc: 1,
           cat_id: 1,
-          tk_id: null
+          tk_id: null,
+          comments: []
         };
         $('#modalEdit').openModal();
       }
@@ -71,6 +76,24 @@ exports = module.exports = function(app){
       else{
         $scope.tkEdit.tk_delr = '';
         $('#modalDel').openModal();
+      }
+    };
+    
+    $scope.deleteCom = function(com_id){
+      if(confirm("Suprimmer le commentaire ?")){
+        $http({
+          method: 'DELETE',
+          url: gDataOrig+"/devzone/ticket/"+$scope.tkEdit.tk_id+"/comment/"+com_id
+        }).then(function(res) {
+          if(res.data == 'OK'){
+            Materialize.toast('Le commentaire a été supprimé!', 6000, 'green');
+            $scope.editTicket($scope.tkEdit.tk_id);
+          }
+          else{
+            Materialize.toast('Une erreur est survenue lors de la supression!', 6000, 'red');
+            $('#modalEdit').openModal();
+          }
+        });
       }
     };
     
@@ -128,6 +151,32 @@ exports = module.exports = function(app){
       }
     };
     
+    $scope.addCom = function(){
+      if($scope.tkEdit.tk_comment.length < 3)
+        return;
+      if($scope.tkEdit.tk_id === null)
+        return;
+      
+      $scope.tkEdit.working = true;
+      $http({
+        method: 'PUT',
+        url: gDataOrig+"/devzone/ticket/"+$scope.tkEdit.tk_id+"/comment",
+        data:{
+          text: $scope.tkEdit.tk_comment,
+        }
+      }).then(function(res) {
+        $scope.tkEdit.working = false;
+        if(res.data == 'ok'){
+          $scope.tkEdit.tk_comment = '';
+          Materialize.toast('Le commentaire a été ajouté!', 6000, 'green');
+          $scope.editTicket($scope.tkEdit.tk_id);
+        }
+        else{
+          Materialize.toast('Une erreur est survenue lors de l\' envoi du commentaire!', 6000, 'red');
+        }
+      });
+    };
+    
     $scope.getNameById = function(uid){
       if(!uid || gUserW)
         return 'Personne';
@@ -178,12 +227,12 @@ exports = module.exports = function(app){
     function( m, key, value ) {
         dataGet[key] = value !== undefined ? value : '';
     });
-    if(dataGet.more)
-      $scope.editTicket(dataGet.more);
         
     $http.get(gDataOrig+"/devzone/user").success(function(res){
       $scope.user = res;
       gUser = res;
+      if(dataGet.more)
+        $scope.editTicket(dataGet.more);
     });
     $http.get(gDataOrig+"/jobs").success(function(res){
       res.unshift({

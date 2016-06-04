@@ -27,7 +27,9 @@
 .modal{
   max-height: 90%; 
   &#modalEdit{
-    height: 85%;
+    height: 95%;
+    max-height: 95%;
+    top:2.5% !important;
   }
   .modal-content{
     .row{
