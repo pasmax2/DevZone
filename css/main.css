@@ -27,7 +27,7 @@ body {
   max-height: 90%; }
   .modal#modalEdit {
     height: 95%;
-    max-height: 95%;
+    max-height: 900px;
     top: 2.5% !important; }
   .modal .modal-content .row {
     margin-bottom: 0; }
