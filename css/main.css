@@ -1,5 +1,5 @@
 body {
-  background-color: transparent; }
+  background-color: transparent !important; }
 
 .browser-window, .promo-example, nav, ul.side-nav.fixed {
   overflow: initial; }
@@ -43,3 +43,7 @@ body {
   width: 28px;
   height: 28px;
   line-height: 28px; }
+
+@media (max-width: 1150px) {
+  .container {
+    width: 99%; } }
