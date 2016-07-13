@@ -4,8 +4,8 @@
   <title>DevZone</title>
   <!-- <script src="js/compiled/require.min.js"></script> -->
   <script>_md5 = "<?php if(isset($_COOKIE['tsxcookiev3_sid'])){echo $_COOKIE['tsxcookiev3_sid'];} ?>";</script>
-  <script src="/DevZone/js/compiled/jquery.min.js"></script>
-  <script src="/DevZone/js/compiled/angular.min.js"></script>
+  <!-- <script src="js/compiled/jquery.min.js"></script> -->
+  <!-- <script src="js/compiled/angular.min.js"></script> -->
   <script src="/DevZone/js/materialize/bin/materialize.min.js"></script>
   <script src="/DevZone/js/compiled/angular-materialize.min.js"></script>
   <script src="/DevZone/js/compiled/all.min.js"></script>
