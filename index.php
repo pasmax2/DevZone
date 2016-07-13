@@ -4,15 +4,16 @@
   <title>DevZone</title>
   <!-- <script src="js/compiled/require.min.js"></script> -->
   <script>_md5 = "<?php if(isset($_COOKIE['tsxcookiev3_sid'])){echo $_COOKIE['tsxcookiev3_sid'];} ?>";</script>
-  <script src="js/compiled/jquery.min.js"></script>
-  <script src="js/compiled/angular.min.js"></script>
-  <script src="js/materialize/bin/materialize.min.js"></script>
-  <script src="js/compiled/angular-materialize.min.js"></script>
-  <script src="js/compiled/all.min.js"></script>
-  <link href="styles/angular_materialize.css" rel="stylesheet" type="text/css">
-  <link href="styles/materialize.css" rel="stylesheet" type="text/css">
-  <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="styles/main.css" rel="stylesheet" type="text/css">
+  <script src="/DevZone/js/compiled/jquery.min.js"></script>
+  <script src="/DevZone/js/compiled/angular.min.js"></script>
+  <script src="/DevZone/js/materialize/bin/materialize.min.js"></script>
+  <script src="/DevZone/js/compiled/angular-materialize.min.js"></script>
+  <script src="/DevZone/js/compiled/all.min.js"></script>
+  <meta charset="UTF-8">
+  <link href="/DevZone/styles/angular_materialize.css" rel="stylesheet" type="text/css">
+  <link href="/DevZone/styles/materialize.css" rel="stylesheet" type="text/css">
+  <link href="/DevZone/styles/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/DevZone/styles/main.css" rel="stylesheet" type="text/css">
   <style id="genSty"></style>
 </head>
 <body ng-controller="MainController">

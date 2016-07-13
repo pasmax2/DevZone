@@ -30,18 +30,7 @@ exports = module.exports = function(app){
     
     $scope.newTicket = function(){
       if($scope.user.accesslevel >= 10){
-        $scope.tkEdit = {          
-          tk_title: '',
-          tk_esttime: 0,
-          assig_usr_id: '0',
-          tk_ava: 0,
-          tk_desc: '',
-          tk_url: '',
-          tk_showdesc: 1,
-          cat_id: 1,
-          tk_id: null,
-          comments: []
-        };
+        $scope.clearTkEd();
         $('#modalEdit').openModal();
       }
       else{
@@ -64,7 +53,7 @@ exports = module.exports = function(app){
         }).then(function(res) {
           if(res.data == 'OK'){
             Materialize.toast('Le ticket a été supprimé!', 6000, 'green');
-            $scope.tkEdit = null;
+            $scope.clearTkEd();
             $scope.loadTickets();
           }
           else{
@@ -116,7 +105,7 @@ exports = module.exports = function(app){
         }).then(function(res) {
           if(res.data == 'ok'){
             Materialize.toast('Les modifications ont été sauvegardées!', 6000, 'green');
-            $scope.tkEdit = null;
+            $scope.clearTkEd();
             $scope.loadTickets();
           }
           else{
@@ -140,7 +129,7 @@ exports = module.exports = function(app){
         }).then(function(res) {
           if(res.data == 'ok'){
             Materialize.toast('Le ticket a été ajouté, il sera consulté sous peu par un administrateur ', 6000, 'green');
-            $scope.tkEdit = null;
+            $scope.clearTkEd();
             $scope.loadTickets();
           }
           else{
@@ -150,7 +139,20 @@ exports = module.exports = function(app){
         });
       }
     };
-    
+    $scope.clearTkEd = function(){
+        $scope.tkEdit = {          
+          tk_title: '',
+          tk_esttime: 0,
+          assig_usr_id: '0',
+          tk_ava: 0,
+          tk_desc: '',
+          tk_url: '',
+          tk_showdesc: 1,
+          cat_id: 1,
+          tk_id: null,
+          comments: []
+        };
+    };
     $scope.addCom = function(){
       if($scope.tkEdit.tk_comment.length < 3)
         return;
