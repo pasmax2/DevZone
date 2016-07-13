@@ -1,4 +1,4 @@
-var app = angular.module('devZone', []);
+var app = angular.module('tsx', []);
 
 app.config(function($httpProvider) {
 	$httpProvider.defaults.headers.common.auth = _md5;

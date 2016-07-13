@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="devZone">
+<html ng-app="tsx">
 <head>
   <title>DevZone</title>
   <!-- <script src="js/compiled/require.min.js"></script> -->
